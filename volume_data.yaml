@@ -1,0 +1,44 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elasticsearch-data-persistent-storage
+  labels:
+    app: elasticsearch
+    role: data
+spec:
+  storageClassName: default
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/elasticsearch/elasticdata"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elasticsearch-master-persistent-storage
+  labels:
+    app: elasticsearch
+    role: master
+spec:
+  storageClassName: default
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/elasticsearch/elasticmaster"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch-master-persistent-storage
+spec:
+  storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

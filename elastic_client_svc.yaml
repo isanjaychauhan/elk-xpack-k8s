@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-client
+  labels:
+    app: elasticsearch
+    role: client
+spec:
+  type: NodePort
+  ports:
+  - port: 9200
+    name: client
+    nodePort: 31920
+  - port: 9300
+    name: transport
+    nodePort: 31930
+  selector:
+    app: elasticsearch
+    role: client
+---
